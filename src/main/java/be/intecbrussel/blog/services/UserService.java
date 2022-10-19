@@ -4,6 +4,7 @@ import be.intecbrussel.blog.data.User;
 import be.intecbrussel.blog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,7 @@ public class UserService {
 
 
     public User getCurrentUser(String username) {
-        Optional user = userRepository.findUserByUsername(username);
+        Optional user = userRepository.findUserByUserName(username);
         if (user.isPresent()) {
             return (User) user.get();
         }
@@ -39,4 +40,4 @@ public class UserService {
         return userRepository.findAll();
     }
 }
-}
+

@@ -1,7 +1,5 @@
 package be.intecbrussel.blog.data;
 
-import org.apache.catalina.User;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

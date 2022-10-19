@@ -2,6 +2,7 @@ package be.intecbrussel.blog.data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class BlogPost {
@@ -11,7 +12,7 @@ public class BlogPost {
     private long id;
     private String title;
     @ManyToOne
-    private User author;
+    private User user;
     private String blogBody;
     @OneToMany
     private List<Comment> comments;
@@ -22,14 +23,14 @@ public class BlogPost {
 
     public BlogPost(String title, User author, LocalDateTime timeOfPost) {
         this.title = title;
-        this.author = author;
+        this.user = author;
         this.timeOfPost = timeOfPost;
     }
 
     public BlogPost(long id, String title, User author, String blogBody, List<Comment> comments, LocalDateTime timeOfPost) {
         this.id = id;
         this.title = title;
-        this.author = author;
+        this.user = author;
         this.blogBody = blogBody;
         this.comments = comments;
         this.timeOfPost = timeOfPost;
@@ -51,12 +52,12 @@ public class BlogPost {
         this.title = title;
     }
 
-    public User getAuthor() {
-        return author;
+    public User getUser() {
+        return user;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getBlogBody() {
@@ -88,7 +89,7 @@ public class BlogPost {
         return "BlogPost{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", author=" + author +
+                ", author=" + user +
                 ", blogBody='" + blogBody + '\'' +
                 ", comments=" + comments +
                 ", timeOfPost=" + timeOfPost +

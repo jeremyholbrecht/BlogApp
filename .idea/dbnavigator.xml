@@ -44,9 +44,6 @@
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
   </component>
-  <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/data.sql" connection-id="virtual-mysql-connection" session-id="MAIN" current-schema="" />
-  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
@@ -72,7 +69,7 @@
     <connections>
       <connection id="882a33b4-25d7-4533-aa7c-b1e6f234d786" active="true" signed="true">
         <database>
-          <name value="Connection" />
+          <name value="connection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -83,7 +80,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="8080" />
-          <database value="mysql" />
+          <database value="h2" />
           <type value="USER_PASSWORD" />
           <user value="sa" />
           <deprecated-pwd value="cGFzc3dvcmQ=" />

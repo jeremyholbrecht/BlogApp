@@ -38,11 +38,7 @@ public class BlogPostService {
             if(blogpost.isPresent()) {
                 return (BlogPost) blogpost.get();
             }
-
         } return null;
     }
-
-
-
 
 }

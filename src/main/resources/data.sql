@@ -24,3 +24,15 @@ VALUES (5, 'Things that make me go doh!', 1, 'everything.', current_timestamp() 
 
 INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
 VALUES (6, 'Schlemiel schlemazel', 3, 'Hazenpepper incorporate.', current_timestamp() );
+
+INSERT INTO comment (id, comment, commentBody, commentDate, author_id, post_id)
+VALUES (1, 'opinion', 'this person is right', current_timestamp(), 3, 1 );
+
+INSERT INTO comment (id, comment, commentBody, commentDate, author_id, post_id)
+VALUES (2, 'contrary opinion', 'this person is wrong', current_timestamp(), 2, 1 );
+
+INSERT INTO comment (id, comment, commentBody, commentDate, author_id, post_id)
+VALUES (3, 'insult', 'you are stupid', current_timestamp(), 3, 1 );
+
+INSERT INTO comment (id, comment, commentBody, commentDate, author_id, post_id)
+VALUES (4, 'riposte', 'your face is stupid', current_timestamp(), 2, 1 );

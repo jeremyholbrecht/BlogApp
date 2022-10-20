@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
     List<BlogPost> findByUser(long userId);
-    List<BlogPost> findByUserName(String userName);
 
 }

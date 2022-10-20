@@ -31,7 +31,6 @@ public class User {
         private String city;
         private String zip;
 
-
         @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
         private List<BlogPost> posts = new ArrayList<>();
         @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")

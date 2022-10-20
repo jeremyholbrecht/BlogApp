@@ -18,8 +18,15 @@ public class BlogPost {
     private List<Comment> comments;
     LocalDateTime timeOfPost;
 
+    //Just added
+    @PrePersist
+    protected void oneCreate() {
+        this.timeOfPost = LocalDateTime.now();
+    }
+
     public BlogPost() {
     }
+
 
     public BlogPost(String title, User author, LocalDateTime timeOfPost) {
         this.title = title;

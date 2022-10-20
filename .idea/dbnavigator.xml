@@ -72,7 +72,7 @@
     <connections>
       <connection id="882a33b4-25d7-4533-aa7c-b1e6f234d786" active="true" signed="true">
         <database>
-          <name value="connection" />
+          <name value="Connection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -83,7 +83,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="8080" />
-          <database value="h2" />
+          <database value="mysql" />
           <type value="USER_PASSWORD" />
           <user value="sa" />
           <deprecated-pwd value="cGFzc3dvcmQ=" />

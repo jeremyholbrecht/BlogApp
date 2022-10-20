@@ -14,20 +14,21 @@ public class BlogPost {
     @ManyToOne
     private User user;
     private String blogBody;
+
+    /*if i am not mistaken you need to change the annotation and add Set to comment.
+          1) - @OneToMany (mappedBY = "post")
+           2)-  private Set<Comment> comments = new HashSet<>(); */
     @OneToMany
     private List<Comment> comments;
+   // I think it is better you make 1 more  time variable it will help when we filter
+    // according to time and modification and use the proper annotations something like this  @CreationTimestamp and     @UpdateTimestamp
     LocalDateTime timeOfPost;
-
-    //Just added
     @PrePersist
     protected void oneCreate() {
         this.timeOfPost = LocalDateTime.now();
     }
-
     public BlogPost() {
     }
-
-
     public BlogPost(String title, User author, LocalDateTime timeOfPost) {
         this.title = title;
         this.user = author;

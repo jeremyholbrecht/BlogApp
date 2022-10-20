@@ -4,7 +4,7 @@ package be.intecbrussel.blog.data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+//Yohana check
 @Entity
 public class Comment {
     @Id

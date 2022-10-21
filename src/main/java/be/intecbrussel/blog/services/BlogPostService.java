@@ -21,6 +21,32 @@ public class BlogPostService {
         return blogPostRepository.save(blogPost);
     }
 
+
+    public BlogPost getOneById(long id){
+        BlogPost bp = new BlogPost();
+        Optional blogpost = blogPostRepository.findById(bp.getId());
+        if(blogpost.isPresent()){
+            return bp;
+        }return null;
+    }
+
+    public BlogPost getOneByTitle(String title){
+        Optional blogPost = blogPostRepository.findBlogPostByTitle(title);
+        if(blogPost.isPresent()){
+            return (BlogPost) blogPost.get();
+        }
+        return null;
+    }
+
+    public void deleteBlogPost(BlogPost blogPost){
+        blogPostRepository.delete(blogPost);
+    }
+
+    public void editBlogPost(BlogPost blogPost){
+        blogPostRepository.save(blogPost);
+
+    }
+
     public List<BlogPost> getAllBlogPosts(){
         return blogPostRepository.findAll();
     }
@@ -31,13 +57,13 @@ public class BlogPostService {
                 .forEach(blogPosts::add);
         return blogPosts;
     }
-// works in testing
+
     public List<BlogPost> getAllByNewest(List<BlogPost> blogPosts){
         blogPosts = blogPostRepository.findAll();
         blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost).reversed());
         return blogPosts;
     }
-// works in testing
+
     public List<BlogPost> getAllByOldest(List<BlogPost> blogPosts){
         blogPosts = blogPostRepository.findAll();
         blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost));
@@ -57,30 +83,34 @@ public class BlogPostService {
         //listMostPopular.sort(Comparator.comparingInt(BlogPost.getHitCounter()));
     }
 
-
-    public BlogPost getOneById(long id){
-        BlogPost bp = new BlogPost();
-        Optional blogpost = blogPostRepository.findById(bp.getId());
-          if(blogpost.isPresent()){
-              return bp;
-            }return null;
+    public List<BlogPost> getAllByAuthorByNewest(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost).reversed());
+        return blogPosts;
     }
 
-    public BlogPost getOneByTitle(String title){
-        Optional blogPost = blogPostRepository.findBlogPostByTitle(title);
-        if(blogPost.isPresent()){
-            return (BlogPost) blogPost.get();
-        }
-        return null;
+    public List<BlogPost> getAllByAuthorByOldest(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost));
+        return blogPosts;
     }
 
-    public void deleteBlogPost(BlogPost blogPost){
-        blogPostRepository.delete(blogPost);
-    }
-
-    public void editBlogPost(BlogPost blogPost){
-        blogPostRepository.save(blogPost);
-
+    //TODO: see above re: getAllByPopular
+    public List<BlogPost> getAllByUserByPopular(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        Collections.sort(blogPosts, new Comparator<BlogPost>() {
+            @Override
+            public int compare(BlogPost o1, BlogPost o2) {
+                return Integer.valueOf(o2.getHitCounter()).compareTo(o1.getHitCounter());
+            }
+        });
+        return blogPosts;
     }
 
 

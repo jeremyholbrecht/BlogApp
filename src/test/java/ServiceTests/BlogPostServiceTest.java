@@ -107,5 +107,55 @@ public class BlogPostServiceTest {
         Assert.assertEquals(0, sortedByOld.indexOf(blogpost2));
     }
 
+    @Test
+    public void testIfSortableByNewestByAuthor(){
+        author1.setId(Long.valueOf(1));
+        author2.setId(Long.valueOf(2));
+        blogpost1.setTimeOfPost(LocalDateTime.of(2022, Month.JANUARY, 5, 13, 45));
+        blogpost2.setTimeOfPost(LocalDateTime.of(2021, Month.JANUARY, 23, 4, 55));
+        blogpost3.setTimeOfPost(LocalDateTime.of(2022, Month.JUNE, 17, 12, 14));
+        blogPost4.setTimeOfPost(LocalDateTime.of(2021, Month.JANUARY, 23, 5, 05));
+        List<BlogPost> author1blogposts = new ArrayList<>();
+        List<BlogPost> author2blogposts = new ArrayList<>();
+        author1blogposts.add(blogpost1);
+        author2blogposts.add(blogpost2);
+        author1blogposts.add(blogpost3);
+        author2blogposts.add(blogPost4);
+//        when(blogPostRepository.findByUser(author1.getId())).thenReturn(allBlogPostsByAuthor1);
+//        List<BlogPost> foundAllBlogsByAuthor1 = blogPostService.getAllBlogPostsByAuthor(author1);
+        when(blogPostRepository.findByUser(author1.getId())).thenReturn(author1blogposts);
+        when(blogPostRepository.findByUser(author2.getId())).thenReturn(author2blogposts);
+        List<BlogPost> author1sortedByNew = blogPostService.getAllByAuthorByNewest(author1);
+        List<BlogPost> author2sortedByNew = blogPostService.getAllByAuthorByNewest(author2);
+        Assert.assertEquals(2, author1sortedByNew.size());
+        Assert.assertEquals(0, author1sortedByNew.indexOf(blogpost3));
+        Assert.assertEquals(2, author2sortedByNew.size());
+        Assert.assertEquals(1, author2sortedByNew.indexOf(blogpost2));
+    }
 
+    @Test
+    public void testIfSortableByOldestByAuthor(){
+        author1.setId(Long.valueOf(1));
+        author2.setId(Long.valueOf(2));
+        blogpost1.setTimeOfPost(LocalDateTime.of(2022, Month.JANUARY, 5, 13, 45));
+        blogpost2.setTimeOfPost(LocalDateTime.of(2021, Month.JANUARY, 23, 4, 55));
+        blogpost3.setTimeOfPost(LocalDateTime.of(2022, Month.JUNE, 17, 12, 14));
+        blogPost4.setTimeOfPost(LocalDateTime.of(2021, Month.JANUARY, 23, 5, 05));
+        List<BlogPost> author1blogposts = new ArrayList<>();
+        List<BlogPost> author2blogposts = new ArrayList<>();
+        author1blogposts.add(blogpost1);
+        author2blogposts.add(blogpost2);
+        author1blogposts.add(blogpost3);
+        author2blogposts.add(blogPost4);
+//        when(blogPostRepository.findByUser(author1.getId())).thenReturn(allBlogPostsByAuthor1);
+//        List<BlogPost> foundAllBlogsByAuthor1 = blogPostService.getAllBlogPostsByAuthor(author1);
+        when(blogPostRepository.findByUser(author1.getId())).thenReturn(author1blogposts);
+        when(blogPostRepository.findByUser(author2.getId())).thenReturn(author2blogposts);
+        List<BlogPost> author1byoldest = blogPostService.getAllByAuthorByOldest(author1);
+        List<BlogPost> author2byoldest = blogPostService.getAllByAuthorByOldest(author2);
+        Assert.assertEquals(2, author1byoldest.size());
+        Assert.assertEquals(1, author1byoldest.indexOf(blogpost3));
+        Assert.assertEquals(2, author1byoldest.size());
+        Assert.assertEquals(0, author2byoldest.indexOf(blogpost2));
+    }
 }

@@ -31,15 +31,29 @@ public class BlogPostService {
         return blogPosts;
     }
 
-    public BlogPost getOneByTitle(String title){
-        BlogPost bp = new BlogPost("", new User(), LocalDateTime.now());
-        if(title.equals(bp.getTitle())){
-            Optional blogpost = blogPostRepository.findById(bp.getId());
-            if(blogpost.isPresent()) {
-                return (BlogPost) blogpost.get();
-            }
+    public BlogPost getOneById(long id){
+        BlogPost bp = new BlogPost();
+        Optional blogpost = blogPostRepository.findById(bp.getId());
+          if(blogpost.isPresent()){
+              return bp;
+            }return null;
+    }
 
-        } return null;
+    public BlogPost getOneByTitle(String title){
+        Optional blogPost = blogPostRepository.findBlogPostByTitle(title);
+        if(blogPost.isPresent()){
+            return (BlogPost) blogPost.get();
+        }
+        return null;
+    }
+
+    public void deleteBlogPost(BlogPost blogPost){
+        blogPostRepository.delete(blogPost);
+    }
+
+    public void editBlogPost(BlogPost blogPost){
+        blogPostRepository.save(blogPost);
+
     }
 
 

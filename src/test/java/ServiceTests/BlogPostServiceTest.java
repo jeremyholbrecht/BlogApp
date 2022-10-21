@@ -4,7 +4,9 @@ import be.intecbrussel.blog.data.BlogPost;
 import be.intecbrussel.blog.data.User;
 import be.intecbrussel.blog.repositories.BlogPostRepository;
 import be.intecbrussel.blog.services.BlogPostService;
+import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -12,8 +14,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class BlogPostServiceTest {
     private static BlogPost blogpost1;
@@ -32,15 +37,36 @@ public class BlogPostServiceTest {
     public static void createTestBlogPosts(){
         author1 = new User();
         author2 = new User();
-        blogpost1 = new BlogPost("abcdefg", author1, LocalDateTime.of(2021, Month.JANUARY, 5, 12, 00));
-        blogpost2 = new BlogPost("hijk", author2, LocalDateTime.of(2021, Month.JANUARY, 6, 12, 00));
-        blogpost3 = new BlogPost("lmnop", author1, LocalDateTime.of(2021, Month.JANUARY, 7, 12, 00));
-        blogPost4 = new BlogPost("qrstu", author2, LocalDateTime.of(2021, Month.JANUARY, 8, 12, 00));
+        blogpost1 = new BlogPost(1, "abcdefg", author1);
+        blogpost2 = new BlogPost(2, "hijk", author2);
+        blogpost3 = new BlogPost(3, "lmnop", author1);
+        blogPost4 = new BlogPost(4, "qrstu", author2);
         author1.setUserName("Sam");
+        author1.setId(Long.valueOf(3));
         author2.setUserName("Iam");
+        author2.setId(Long.valueOf(2));
+
     }
 
-//    public void testIfYouCanGetAllPostsByAuthor(){
-//        List<BlogPost> blogPosts
-//    }
+    @Test
+    public void testIfYouCanGetAllPostsByAuthor(){
+        List<BlogPost> allBlogPostsByAuthor1 = new ArrayList<>();
+        allBlogPostsByAuthor1.add(blogpost1);
+        allBlogPostsByAuthor1.add(blogpost3);
+        when(blogPostRepository.findByUser(author1.getId())).thenReturn(allBlogPostsByAuthor1);
+        List<BlogPost> foundAllBlogsByAuthor1 = blogPostService.getAllBlogPostsByAuthor(author1);
+        Assert.assertTrue(foundAllBlogsByAuthor1.contains(blogpost1));
+        Assert.assertTrue(foundAllBlogsByAuthor1.contains(blogpost3));
+        Assert.assertFalse(foundAllBlogsByAuthor1.contains(blogpost2));
+        Assert.assertFalse(foundAllBlogsByAuthor1.contains(blogPost4));
+        Assert.assertEquals(2, foundAllBlogsByAuthor1.size());
+    }
+    @Test
+    public void testIfYouCanGetOneByTitle(){
+        String title = blogpost1.getTitle();
+        when(blogPostRepository.findBlogPostByTitle(title)).thenReturn(Optional.ofNullable(blogpost1));
+        Assert.assertEquals(blogpost1, blogPostService.getOneByTitle(title));
+        Assert.assertNotEquals(blogpost2, blogPostService.getOneByTitle(title));
+}
+
 }

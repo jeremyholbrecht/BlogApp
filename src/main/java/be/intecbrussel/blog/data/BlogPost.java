@@ -1,6 +1,8 @@
 package be.intecbrussel.blog.data;
 
 import javax.persistence.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,11 +16,11 @@ public class BlogPost {
     @ManyToOne
     private User user;
     private String blogBody;
-
+    private static int hitCount = CounterServlet.getHitCounter();
     /*if i am not mistaken you need to change the annotation and add Set to comment.
           1) - @OneToMany (mappedBY = "post")
            2)-  private Set<Comment> comments = new HashSet<>(); */
-    @OneToMany
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
    // I think it is better you make 1 more  time variable it will help when we filter
     // according to time and modification and use the proper annotations something like this  @CreationTimestamp and     @UpdateTimestamp
@@ -101,6 +103,11 @@ public class BlogPost {
         this.timeOfPost = timeOfPost;
     }
 
+    public int getHitCounter(){
+        return hitCount;
+    }
+
+
     @Override
     public String toString() {
         return "BlogPost{" +
@@ -111,5 +118,19 @@ public class BlogPost {
                 ", comments=" + comments +
                 ", timeOfPost=" + timeOfPost +
                 '}';
+    }
+}
+
+class CounterServlet extends HttpServlet{
+    private static int hitCounter;
+
+    public void init() throws ServletException{
+        hitCounter = 0;
+    }
+    public void countHits(){
+        hitCounter++;
+    }
+    public static int getHitCounter(){
+        return hitCounter;
     }
 }

@@ -1,5 +1,6 @@
 package be.intecbrussel.blog.services;
 
+import be.intecbrussel.blog.data.Comment;
 import be.intecbrussel.blog.data.User;
 import be.intecbrussel.blog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,6 @@ public class UserService {
             return (User) user.get();
         }
         return null;
-
-
-
     }
 
     public List<User> getAllUsers() {

@@ -29,16 +29,25 @@ public class BlogPost {
     }
     public BlogPost() {
     }
+
     public BlogPost(String title, User author, LocalDateTime timeOfPost) {
         this.title = title;
         this.user = author;
         this.timeOfPost = timeOfPost;
     }
 
-    public BlogPost(long id, String title, User author, String blogBody, List<Comment> comments, LocalDateTime timeOfPost) {
+
+    public BlogPost(long id, String title, User author) {
         this.id = id;
         this.title = title;
         this.user = author;
+
+    }
+
+    public BlogPost(long id, String title, User user, String blogBody, List<Comment> comments, LocalDateTime timeOfPost) {
+        this.id = id;
+        this.title = title;
+        this.user = user;
         this.blogBody = blogBody;
         this.comments = comments;
         this.timeOfPost = timeOfPost;

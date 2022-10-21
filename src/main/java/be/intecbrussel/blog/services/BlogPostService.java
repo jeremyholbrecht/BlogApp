@@ -47,9 +47,9 @@ public class BlogPostService {
 
     }
 
-    public List<BlogPost> getAllBlogPosts(){
-        return blogPostRepository.findAll();
-    }
+//    public List<BlogPost> getAllBlogPosts(){
+//        return blogPostRepository.findAll();
+//    }
 
     public List<BlogPost> getAllBlogPostsByAuthor(User user){
         List<BlogPost> blogPosts = new ArrayList<>();
@@ -58,7 +58,8 @@ public class BlogPostService {
         return blogPosts;
     }
 
-    public List<BlogPost> getAllByNewest(List<BlogPost> blogPosts){
+    public List<BlogPost> getAllByNewest(){
+        List<BlogPost> blogPosts;
         blogPosts = blogPostRepository.findAll();
         blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost).reversed());
         return blogPosts;

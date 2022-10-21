@@ -81,7 +81,7 @@ public class BlogPostServiceTest {
         allBlogPosts.add(blogpost3);
         allBlogPosts.add(blogPost4);
         when(blogPostRepository.findAll()).thenReturn(allBlogPosts);
-        List<BlogPost> sortedByNew = blogPostService.getAllByNewest(allBlogPosts);
+        List<BlogPost> sortedByNew = blogPostService.getAllByNewest();
         Assert.assertEquals(0, sortedByNew.indexOf(blogpost3));
         Assert.assertEquals(1, sortedByNew.indexOf(blogpost1));
         Assert.assertEquals(2, sortedByNew.indexOf(blogPost4));

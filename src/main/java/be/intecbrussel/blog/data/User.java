@@ -13,42 +13,45 @@ import java.util.List;
 @Entity
 public class User {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        @Column(nullable = false)
-        private String name;
-        @Column(unique = true, updatable = false)
-        private String userName;
-        @Column(nullable = true)
-        private String lastName;
-        @Column(nullable = false, unique = true)
-        private String email;
-        @Column(nullable = false, length = 2500)
-        private String password;
-        private String street;
-        private int houseN;
-        private String city;
-        private String zip;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    private String name;
+    @Column(unique = true, updatable = false)
+    private String userName;
+    @Column(nullable = false)
+    private String lastName;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false, length = 2500)
+    private String password;
+    private String street;
+    private Integer houseN;
+    private String city;
+    private String zip;
+    private boolean isAuthor;
 
-        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-        private List<BlogPost> posts = new ArrayList<>();
-        @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-        @Column(updatable = false)
-        private LocalDateTime createdDate;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<BlogPost> posts = new ArrayList<>();
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
+    @Column(updatable = false)
+    private LocalDateTime createdDate;
 
-        @PrePersist
-        protected void oneCreate() {
-            this.createdDate = LocalDateTime.now();
-        }
+    @PrePersist
+    protected void oneCreate() {
+        this.createdDate = LocalDateTime.now();
+    }
 
-        public User() {
+    public User() {
 
-        }
+    }
 
-    public User(String name, String userName, String lastName,
-                String email, String password, String street, int houseN,
-                String city, String zip, List<BlogPost> posts, LocalDateTime createdDate) {
+    public User(String name,
+                String userName, String lastName,
+                String email, String password, String street,
+                Integer houseN, String city, String zip, boolean isAuthor,
+                List<BlogPost> posts, LocalDateTime createdDate) {
         this.name = name;
         this.userName = userName;
         this.lastName = lastName;
@@ -58,10 +61,10 @@ public class User {
         this.houseN = houseN;
         this.city = city;
         this.zip = zip;
+        this.isAuthor = isAuthor;
         this.posts = posts;
         this.createdDate = createdDate;
     }
-
 
     public Long getId() {
         return id;
@@ -119,11 +122,11 @@ public class User {
         this.street = street;
     }
 
-    public int getHouseN() {
+    public Integer getHouseN() {
         return houseN;
     }
 
-    public void setHouseN(int houseN) {
+    public void setHouseN(Integer houseN) {
         this.houseN = houseN;
     }
 
@@ -141,6 +144,14 @@ public class User {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public boolean isAuthor() {
+        return isAuthor;
+    }
+
+    public void setAuthor(boolean author) {
+        isAuthor = author;
     }
 
     public List<BlogPost> getPosts() {
@@ -172,6 +183,7 @@ public class User {
                 ", houseN="+houseN+
                 ", city='"+city+'\''+
                 ", zip='"+zip+'\''+
+                ", isAuthor="+isAuthor+
                 ", posts="+posts+
                 ", createdDate="+createdDate+
                 '}';

@@ -7,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BlogPostService {
     private BlogPostRepository blogPostRepository;
 
-    @Autowired
     public BlogPostService(BlogPostRepository blogPostRepository) {
         this.blogPostRepository = blogPostRepository;
     }
@@ -24,19 +21,13 @@ public class BlogPostService {
         return blogPostRepository.save(blogPost);
     }
 
-    public List<BlogPost> getAllBlogPostsByAuthor(User user){
-        List<BlogPost> blogPosts = new ArrayList<>();
-        blogPostRepository.findByUser(user.getId())
-                .forEach(blogPosts::add);
-        return blogPosts;
-    }
 
     public BlogPost getOneById(long id){
         BlogPost bp = new BlogPost();
         Optional blogpost = blogPostRepository.findById(bp.getId());
-          if(blogpost.isPresent()){
-              return bp;
-            }return null;
+        if(blogpost.isPresent()){
+            return bp;
+        }return null;
     }
 
     public BlogPost getOneByTitle(String title){
@@ -54,6 +45,72 @@ public class BlogPostService {
     public void editBlogPost(BlogPost blogPost){
         blogPostRepository.save(blogPost);
 
+    }
+
+    public List<BlogPost> getAllBlogPosts(){
+        return blogPostRepository.findAll();
+    }
+
+    public List<BlogPost> getAllBlogPostsByAuthor(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        return blogPosts;
+    }
+
+    public List<BlogPost> getAllByNewest(List<BlogPost> blogPosts){
+        blogPosts = blogPostRepository.findAll();
+        blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost).reversed());
+        return blogPosts;
+    }
+
+    public List<BlogPost> getAllByOldest(List<BlogPost> blogPosts){
+        blogPosts = blogPostRepository.findAll();
+        blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost));
+        return blogPosts;
+    }
+//// TODO: Not sure how to test this one OR link it to front end.
+// TODO: Servlet created in BlogPost Class to count views, but not sure if this is correct.
+    public List<BlogPost> getAllByPopular(List<BlogPost> blogPosts){
+        blogPosts = blogPostRepository.findAll();
+        Collections.sort(blogPosts, new Comparator<BlogPost>() {
+            @Override
+            public int compare(BlogPost o1, BlogPost o2) {
+                return Integer.valueOf(o2.getHitCounter()).compareTo(o1.getHitCounter());
+            }
+        });
+          return blogPosts;
+        //listMostPopular.sort(Comparator.comparingInt(BlogPost.getHitCounter()));
+    }
+
+    public List<BlogPost> getAllByAuthorByNewest(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost).reversed());
+        return blogPosts;
+    }
+
+    public List<BlogPost> getAllByAuthorByOldest(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        blogPosts.sort(Comparator.comparing(BlogPost::getTimeOfPost));
+        return blogPosts;
+    }
+
+    //TODO: see above re: getAllByPopular
+    public List<BlogPost> getAllByUserByPopular(User user){
+        List<BlogPost> blogPosts = new ArrayList<>();
+        blogPostRepository.findByUser(user.getId())
+                .forEach(blogPosts::add);
+        Collections.sort(blogPosts, new Comparator<BlogPost>() {
+            @Override
+            public int compare(BlogPost o1, BlogPost o2) {
+                return Integer.valueOf(o2.getHitCounter()).compareTo(o1.getHitCounter());
+            }
+        });
+        return blogPosts;
     }
 
 

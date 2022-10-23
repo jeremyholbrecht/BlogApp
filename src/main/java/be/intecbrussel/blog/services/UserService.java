@@ -21,14 +21,23 @@ public class UserService {
 
 
 
-    public User createUser(User user) {
+    public User createUser(User user)  throws RuntimeException{
         List<BlogPost> posts = new ArrayList<>();
         if(user.isAuthor()) {
             user.setPosts(posts);
+        if(user.getPassword().equals(user.getRePassword()))
             return userRepository.save(user);
         }
-        return userRepository.save(user);
+        if(user.getPassword().equals(user.getRePassword())) {
+            return userRepository.save(user);
+    } else {
+            throw new RuntimeException("Different password entered!");
+
+        }
+
+
     }
+
 
 
 

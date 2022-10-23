@@ -3,6 +3,10 @@ package be.intecbrussel.blog.data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+ import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +21,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+   @NotBlank(message = "Name should not be empty")
+   @Size(min = 2, max = 30, message = "Name should be entre 2 and 30 characters")
     private String name;
     @Column(unique = true, updatable = false)
+   @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 30, message = "Name should be entre 2 and 30 characters")
     private String userName;
     @Column(nullable = false)
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 30, message = "Name should be entre 2 and 30 characters")
     private String lastName;
     @Column(nullable = false, unique = true)
+    @NotEmpty(message = "email should not be empty")
+    @Email(message = "email should be valid")
     private String email;
     @Column(nullable = false, length = 2500)
     private String password;
+    @Column(nullable = false, length = 2500)
+    private String rePassword;
     private String street;
     private Integer houseN;
     private String city;
@@ -47,16 +61,16 @@ public class User {
 
     }
 
-    public User(String name,
-                String userName, String lastName,
-                String email, String password, String street,
-                Integer houseN, String city, String zip, boolean isAuthor,
-                List<BlogPost> posts, LocalDateTime createdDate) {
+    public User(String name, String userName, String lastName, String email,
+                String password, String rePassword, String street, Integer houseN,
+                String city, String zip, boolean isAuthor, List<BlogPost> posts,
+                LocalDateTime createdDate) {
         this.name = name;
         this.userName = userName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.rePassword = rePassword;
         this.street = street;
         this.houseN = houseN;
         this.city = city;
@@ -170,6 +184,14 @@ public class User {
         this.createdDate = createdDate;
     }
 
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
+    }
+
     @Override
     public String toString() {
         return "User{"+
@@ -179,6 +201,7 @@ public class User {
                 ", lastName='"+lastName+'\''+
                 ", email='"+email+'\''+
                 ", password='"+password+'\''+
+                ", rePassword='"+rePassword+'\''+
                 ", street='"+street+'\''+
                 ", houseN="+houseN+
                 ", city='"+city+'\''+

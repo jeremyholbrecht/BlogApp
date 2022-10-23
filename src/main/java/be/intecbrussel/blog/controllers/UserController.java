@@ -35,16 +35,21 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "password", method = {RequestMethod.GET, RequestMethod.POST})
+        public String password(Model model, @PathVariable String password) {
+           String chekedPassword = password;
+           model.addAttribute("password", password);
+           return "password";
+    }
 
 
 
 
 
-    //@GetMapping("/index")
-   // public String showAll(){
 
 
-      //  return "index";
+
+
 
 
 

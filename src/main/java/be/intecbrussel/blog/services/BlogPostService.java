@@ -17,6 +17,7 @@ public class BlogPostService {
         this.blogPostRepository = blogPostRepository;
     }
 
+
     public BlogPost createBlogPost(BlogPost blogPost){
         return blogPostRepository.save(blogPost);
     }

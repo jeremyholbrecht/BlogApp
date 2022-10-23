@@ -25,6 +25,7 @@ public class UserController {
     }
 
 
+
     @GetMapping("/register")
     public String userRegistrationPage(Model model ) {
          User user = new User();
@@ -33,15 +34,19 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String submitForm(@Valid Model model, @ Valid User user, BindingResult bindingResult) {
+    public String submitForm(Model model, @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "/register";
+            return "signup";
 
             model.addAttribute("user", userService.createUser(user));
             return "redirect:/index";
 
 
     }
+
+
+
+
 }
 
 

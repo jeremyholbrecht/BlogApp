@@ -25,20 +25,22 @@ public class User {
    @Size(min = 2, max = 30, message = "Name should be entre 2 and 30 characters")
     private String name;
     @Column(unique = true, updatable = false)
-   @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 30, message = "Name should be entre 2 and 30 characters")
+   @NotEmpty(message = "Username should not be empty")
+    @Size(min = 2, max = 30, message = "Username should be entre 2 and 30 characters")
     private String userName;
     @Column(nullable = false)
-    @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 30, message = "Name should be entre 2 and 30 characters")
+    @NotEmpty(message = "Lastname should not be empty")
+    @Size(min = 2, max = 30, message = "Lastname should be entre 2 and 30 characters")
     private String lastName;
     @Column(nullable = false, unique = true)
     @NotEmpty(message = "email should not be empty")
     @Email(message = "email should be valid")
     private String email;
     @Column(nullable = false, length = 2500)
+    @NotEmpty(message = "password should not be empty")
     private String password;
     @Column(nullable = false, length = 2500)
+    @NotEmpty(message = "Repassword should not be empty")
     private String rePassword;
     private String street;
     private Integer houseN;

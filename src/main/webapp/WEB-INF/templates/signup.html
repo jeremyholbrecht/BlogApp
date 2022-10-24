@@ -83,7 +83,7 @@
         <div class="form-group">
             <label for="rePassword"> Retype Password</label>
             <input type="password" th:field = "*{rePassword}" class="form-control" id="rePassword" placeholder="Required">
-            <p style="color:red" th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"> rePassword error </p>
+            <p style="color:red" th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"> rePassword  </p>
 
         </div>
 

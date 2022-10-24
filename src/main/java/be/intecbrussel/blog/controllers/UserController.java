@@ -40,12 +40,12 @@ public class UserController {
 
 
 
-    @GetMapping("/index")
-    public String showAll(){
-
-
-        return "index";
-    }
+//    @GetMapping("/index")
+//    public String showAll(){
+//
+//
+//        return "index";
+//    }
 
 
 

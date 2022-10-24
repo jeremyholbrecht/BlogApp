@@ -13,7 +13,7 @@ public class BlogPost {
     @GeneratedValue
     private long id;
     private String title;
-    @ManyToOne
+    @ManyToOne//(cascade = {CascadeType.PERSIST})
     private User user;
     private String blogBody;
     private static int hitCount = CounterServlet.getHitCounter();

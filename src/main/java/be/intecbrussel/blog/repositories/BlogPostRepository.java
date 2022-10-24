@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
-    List<BlogPost> findByUser(long userId);
+    List<BlogPost> findByUser(User user);
     Optional<BlogPost> findBlogPostByTitle(String title);
     List<BlogPost> findAll();
 

@@ -31,13 +31,14 @@ public class BlogPostController {
         return "index";
     }
 
-    @GetMapping("/index/{authorName}")
-    public String showAllBlogsFromAuthor(Model model, @PathVariable("authorName") String username){
-        User user = userService.getCurrentUser(username);
-        model.addAttribute("authorName", username);
+    @GetMapping("/index/{userName}")
+    public String showAllBlogsFromAuthor(Model model, @PathVariable("userName") String author, Long id){
+        User user = userService.getCurrentUser(author);
+        //userId = user.getId();
+        model.addAttribute("userName", author);
         model.addAttribute("blogPosts", blogPostService.getAllByAuthorByNewest(user));
         model.addAttribute("blogPost", new BlogPost());
-        return "authorPage";
+        return "author";
     }
     @PostMapping("/addBlogPost")
     public String addBlogPost(BlogPost blogPost, String userName){

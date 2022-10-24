@@ -1,11 +1,11 @@
-INSERT INTO users (name, email, password, userName, lastName, street, houseN, city, zip, isAuthor, rePassword)
-VALUES ('Buffy', 'siezeTheDay@blabla.com', 'Ih8vamps', 'Slayer', 'Summers', 'Evergreen Terrace', 6, 'Sunnydale','90210', false, 'Ih8vamps');
+INSERT INTO users (name, email, password, userName, lastName, street, houseN, city, zip, rePassword, passwordsEqual)
+VALUES ('Buffy', 'siezeTheDay@blabla.com', 'Ih8vamps', 'Slayer', 'Summers', 'Evergreen Terrace', 6, 'Sunnydale','90210', 'Ih8vamps', true);
 
-INSERT INTO users (name, email, password, userName, lastName, street, houseN, city, zip, isAuthor, rePassword)
-VALUES ('Homer', 'yayDonuts@blabla.com', 'mmmmmmmm', 'DohMan', 'Simpson', 'Forest lane', 28, 'Springfield','90210', true, 'Ih8vamps');
+INSERT INTO users (name, email, password, userName, lastName, street, houseN, city, zip, rePassword, passwordsEqual)
+VALUES ('Homer', 'yayDonuts@blabla.com', 'mmmmmmmm', 'DohMan', 'Simpson', 'Forest lane', 28, 'Springfield','90210', 'Ih8vamps', true);
 
-INSERT INTO users (name, email, password, userName, lastName, street, houseN, city, zip, isAuthor, rePassword)
-VALUES ('Joe', 'JoeBlow@blabla.com', 'bladibla', 'JoeBlow', 'Smith', 'Main St', 6, 'Detroit','90210', false, 'Ih8vamps');
+INSERT INTO users (name, email, password, userName, lastName, street, houseN, city, zip, rePassword, passwordsEqual)
+VALUES ('Joe', 'JoeBlow@blabla.com', 'bladibla', 'JoeBlow', 'Smith', 'Main St', 6, 'Detroit','90210', 'Ih8vamps', true);
 
 INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
 VALUES (1, 'Why Vampires Are The Worst', 1, 'Bla bla blitty blop bla. Bloo bloo bla bla blitty bloo.', current_timestamp() );

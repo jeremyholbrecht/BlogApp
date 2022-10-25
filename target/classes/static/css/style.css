@@ -34,13 +34,14 @@
 .nav-link {
     margin-left: 170px;
 }
-
 .block {
-    color: red;
-   position: flex
+   border: black 10px solid;
    padding: 100px;
-   align: right;
    display: flex;
    align-items: right;
-
+   margin-left: 200px;
+   flex-direction: column;
+}
+.block #blogTitle{
+    font-size: 30px;
 }

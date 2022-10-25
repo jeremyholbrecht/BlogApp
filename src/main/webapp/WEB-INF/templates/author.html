@@ -35,12 +35,13 @@
   <p>Visited: 9687892</p>
 </div>
 
+<div th:each="blogPost : ${blogPosts}">
 <div class="block">
-<ul th:each="blogPost : ${blogPosts}">
-  <div th:text="${blogPost.user.userName}"><a href="@{/index/{userName}(userName = ${blogPost.user.userName})}"> Author</a></div><br>
-  <div th:text="${blogPost.title}">Title</div><br>
-  <div th:text="${blogPost.blogBody}">Text....</div>
-</ul></div>
+
+  <div>  <a id="blogTitle" th:text="${blogPost.title}">Title</a>
+    <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a></p>
+  <div><p th:text="${blogPost.blogBody}">Text....</p></div>
+  </div></div></div>
 
 <!---<div class="content">
             <h2>Blog entries:</h2>

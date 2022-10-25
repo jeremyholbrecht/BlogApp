@@ -46,7 +46,9 @@ public class User {
     private Integer houseN;
     private String city;
     private String zip;
-    private boolean isAuthor;
+   // private boolean isAuthor;
+    private boolean isLoggedIn;
+
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<BlogPost> posts = new ArrayList<>();
@@ -65,7 +67,7 @@ public class User {
 
     public User(String name, String userName, String lastName, String email,
                 String password, String rePassword, String street, Integer houseN,
-                String city, String zip, boolean isAuthor, List<BlogPost> posts,
+                String city, String zip, boolean isLoggedIn, List<BlogPost> posts,
                 LocalDateTime createdDate) {
         this.name = name;
         this.userName = userName;
@@ -77,7 +79,8 @@ public class User {
         this.houseN = houseN;
         this.city = city;
         this.zip = zip;
-        this.isAuthor = isAuthor;
+       // this.isAuthor = isAuthor;
+        this.isLoggedIn = isLoggedIn;
         this.posts = posts;
         this.createdDate = createdDate;
     }
@@ -162,12 +165,12 @@ public class User {
         this.zip = zip;
     }
 
-    public boolean isAuthor() {
-        return isAuthor;
+    public boolean isLoggedIn() {
+        return isLoggedIn;
     }
 
-    public void setAuthor(boolean author) {
-        isAuthor = author;
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
     public List<BlogPost> getPosts() {
@@ -208,7 +211,7 @@ public class User {
                 ", houseN="+houseN+
                 ", city='"+city+'\''+
                 ", zip='"+zip+'\''+
-                ", isAuthor="+isAuthor+
+               // ", isAuthor="+isAuthor+
                 ", posts="+posts+
                 ", createdDate="+createdDate+
                 '}';

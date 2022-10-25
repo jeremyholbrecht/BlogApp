@@ -40,10 +40,11 @@ public class UserController {
 
             model.addAttribute("user", userService.createUser(user));
             return "redirect:/index";
+    }
 
-
-
-
+    @GetMapping("/login")
+    public String userLogin( ) {
+        return "login";
     }
 
 

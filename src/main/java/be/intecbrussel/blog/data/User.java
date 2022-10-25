@@ -3,10 +3,7 @@ package be.intecbrussel.blog.data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
- import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
- import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +43,7 @@ public class User {
     private Integer houseN;
     private String city;
     private String zip;
-   // private boolean isAuthor;
-    private boolean isLoggedIn;
+    private boolean passwordsEqual;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -65,9 +61,11 @@ public class User {
 
     }
 
-    public User(String name, String userName, String lastName, String email,
-                String password, String rePassword, String street, Integer houseN,
-                String city, String zip, boolean isLoggedIn, List<BlogPost> posts,
+    public User(String name, String userName,
+                String lastName, String email,
+                String password, String rePassword,
+                String street, Integer houseN, String city,
+                String zip, boolean passwordsEqual, List<BlogPost> posts,
                 LocalDateTime createdDate) {
         this.name = name;
         this.userName = userName;
@@ -79,8 +77,7 @@ public class User {
         this.houseN = houseN;
         this.city = city;
         this.zip = zip;
-       // this.isAuthor = isAuthor;
-        this.isLoggedIn = isLoggedIn;
+        this.passwordsEqual = passwordsEqual;
         this.posts = posts;
         this.createdDate = createdDate;
     }
@@ -133,6 +130,14 @@ public class User {
         this.password = password;
     }
 
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
+    }
+
     public String getStreet() {
         return street;
     }
@@ -165,12 +170,8 @@ public class User {
         this.zip = zip;
     }
 
-    public boolean isLoggedIn() {
-        return isLoggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        isLoggedIn = loggedIn;
+    public void setPasswordsEqual(boolean passwordsEqual) {
+        this.passwordsEqual = passwordsEqual;
     }
 
     public List<BlogPost> getPosts() {
@@ -189,12 +190,9 @@ public class User {
         this.createdDate = createdDate;
     }
 
-    public String getRePassword() {
-        return rePassword;
-    }
-
-    public void setRePassword(String rePassword) {
-        this.rePassword = rePassword;
+    @AssertTrue(message = "Passwords should match")
+    public boolean isPasswordsEqual(){
+        return password.equals(rePassword);
     }
 
     @Override
@@ -211,12 +209,15 @@ public class User {
                 ", houseN="+houseN+
                 ", city='"+city+'\''+
                 ", zip='"+zip+'\''+
-               // ", isAuthor="+isAuthor+
+                ", passwordsEqual="+passwordsEqual+
                 ", posts="+posts+
                 ", createdDate="+createdDate+
                 '}';
     }
+
+    //comment
 }
+
 
 
 

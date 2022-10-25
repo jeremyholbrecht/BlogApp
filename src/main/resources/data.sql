@@ -20,7 +20,7 @@ INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
 VALUES (4, 'Why Vampires Are The Worst pt2', 1, 'Bla bla blitty blop bla. Bloo bloo bla bla blitty bloo.', current_timestamp() );
 
 INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
-VALUES (5, 'Things that make me go doh!', 1, 'everything.', current_timestamp() );
+VALUES (5, 'Things that make me go doh!', 2, 'everything.', current_timestamp() );
 
 INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
 VALUES (6, 'Schlemiel schlemazel', 3, 'Hazenpepper incorporate.', current_timestamp() );

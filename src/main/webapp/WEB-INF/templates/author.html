@@ -35,9 +35,11 @@
   <p>Visited: 9687892</p>
 </div>
 
-<div>
-<ul th:each="blogposts:{blogpost}"
-</div>
+<tr th:each="blogPost : ${blogPosts}">
+  <td th:text="${blogPost.user.userName}">Author</td>
+  <td th:text="${blogPost.title}">Title</td>
+  <td th:text="${blogPost.blogBody}">Text....</td>
+</tr>
 
 </body>
 </html>

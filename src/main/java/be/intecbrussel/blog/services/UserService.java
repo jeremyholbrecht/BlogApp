@@ -42,6 +42,21 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    //comment
+
+    public void update(String userName, User updateUser) {
+        User userToBeUpdate = getCurrentUser(userName);
+
+        userToBeUpdate.setName(updateUser.getName());
+        userToBeUpdate.setLastName(updateUser.getLastName());
+        userToBeUpdate.setEmail(updateUser.getEmail());
+        userToBeUpdate.setPassword(updateUser.getPassword());
+        userToBeUpdate.setRePassword(updateUser.getRePassword());
+        userToBeUpdate.setStreet(updateUser.getStreet());
+        userToBeUpdate.setHouseN(updateUser.getHouseN());
+        userToBeUpdate.setCity(updateUser.getCity());
+        userToBeUpdate.setZip(updateUser.getZip());
+
+
+    }
 }
 

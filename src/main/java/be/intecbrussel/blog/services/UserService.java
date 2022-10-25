@@ -58,5 +58,9 @@ public class UserService {
 
 
     }
+
+    public User autenticate(String userName, String password) {
+        return userRepository.findByUserNameAndPassword(userName, password).orElse(null);
+    }
 }
 

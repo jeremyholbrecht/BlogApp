@@ -25,10 +25,9 @@ public class UserController {
     }
 
 
-
     @GetMapping("/register")
-    public String userRegistrationPage(Model model ) {
-         User user = new User();
+    public String userRegistrationPage(Model model) {
+        User user = new User();
         model.addAttribute("user", user);
         return "signup";
     }
@@ -38,24 +37,39 @@ public class UserController {
         if (bindingResult.hasErrors())
             return "signup";
 
-            model.addAttribute("user", userService.createUser(user));
-            return "redirect:/index";
+        model.addAttribute("user", userService.createUser(user));
+        return "redirect:/index";
     }
 
     @GetMapping("/login")
-    public String userLogin( ) {
+    public String getlogin() {
         return "login";
     }
 
 
-
-
-
-
-
-
-
+    @PostMapping("/login")
+    public String userLogin(@ModelAttribute User user) {
+        User registeredUser = userService.autenticate(user.getUserName(), user.getPassword());
+        if (registeredUser != null) {
+            return "/author";
+        } else {
+            return "/login";
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

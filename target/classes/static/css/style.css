@@ -34,3 +34,12 @@
 .nav-link {
     margin-left: 170px;
 }
+
+#blogBlock{
+   margin: 100px;
+   padding: 100px;
+   align: right;
+   display: flex;
+   align-items: right;
+
+}

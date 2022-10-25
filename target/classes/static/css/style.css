@@ -35,8 +35,9 @@
     margin-left: 170px;
 }
 
-#blogBlock{
-   margin: 100px;
+.block {
+    color: red;
+   position: flex
    padding: 100px;
    align: right;
    display: flex;

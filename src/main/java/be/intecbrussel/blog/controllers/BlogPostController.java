@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -34,21 +36,31 @@ public class BlogPostController {
     @GetMapping("/index/{userName}")
     public String showAllBlogsFromAuthor(Model model, @PathVariable("userName") String author, Long id){
         User user = userService.getCurrentUser(author);
-        //BlogPost blogPost = blogPostService.getOneById(id);
-        //userId = user.getId();
         model.addAttribute("userName", author);
         model.addAttribute("blogPosts", blogPostService.getAllByAuthorByNewest(user));
         model.addAttribute("blogPost", new BlogPost());
-       // model.addAttribute("timeOfPost", new BlogPost().getTimeOfPost());
+        //DateTimeFormatter frontEndDT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        model.addAttribute("timeOfPost", new BlogPost().getTimeOfPost());
         return "author";
     }
 
-    @GetMapping
+
     @PostMapping("/addBlogPost")
     public String addBlogPost(BlogPost blogPost, String userName){
         User user = userService.getCurrentUser(userName);
         blogPost = new BlogPost("", user, blogPost.getTimeOfPost());
         blogPostService.createBlogPost(blogPost);
         return "redirect:/author";
+    }
+
+    @GetMapping("index//author/{blogPostId}")
+    public String showBlogPost(Model model, @PathVariable ("blogPost") Long blogPostId, @PathVariable ("userName") String author){
+        BlogPost blogPost= new BlogPost();
+        blogPostId = blogPost.getId();
+        User user = userService.getCurrentUser(author);
+        model.addAttribute("userName", author);
+        model.addAttribute("blogPost", blogPostService.getOneById(blogPostId));
+        model.addAttribute("timeOfPost", new BlogPost().getTimeOfPost());
+        return "/blogPost";
     }
 }

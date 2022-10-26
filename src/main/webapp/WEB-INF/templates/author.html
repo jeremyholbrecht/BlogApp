@@ -38,11 +38,18 @@
 <div th:each="blogPost : ${blogPosts}">
 <div class="block">
 
-  <div>  <a id="blogTitle" th:text="${blogPost.title}">Title</a>
-    <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a></p>
+  <div>  <a th:href="@{/index/{userName}/{blogPost} (blogPost = ${blogPost.id})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
+    <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
   <div><p th:text="${blogPost.blogBody}">Text....</p></div>
   </div></div></div>
 
+<div class="block">
+<form method="post" th:object = "${blogPost}" th:action = "@{/addBlogPost}">
+  <label>Quick add a new blog post.</label><br>
+  <input type="text" name = "title" placeholder="Title" th:text = *{title}><br><br>
+  <textarea name="blogBody" cols="40" rows="5" th:text= *{blogBody}></textarea><br>
+  <input type="submit" value="create">
+</form></div>
 <!---<div class="content">
             <h2>Blog entries:</h2>
 

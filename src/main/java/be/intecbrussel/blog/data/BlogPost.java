@@ -1,9 +1,13 @@
 package be.intecbrussel.blog.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
@@ -17,18 +21,17 @@ public class BlogPost {
     private User user;
     private String blogBody;
     private static int hitCount = CounterServlet.getHitCounter();
-    /*if i am not mistaken you need to change the annotation and add Set to comment.
-          1) - @OneToMany (mappedBY = "post")
-           2)-  private Set<Comment> comments = new HashSet<>(); */
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
-   // I think it is better you make 1 more  time variable it will help when we filter
-    // according to time and modification and use the proper annotations something like this  @CreationTimestamp and     @UpdateTimestamp
+
     LocalDateTime timeOfPost;
+
     @PrePersist
     protected void oneCreate() {
+
         this.timeOfPost = LocalDateTime.now();
     }
+
     public BlogPost() {
     }
 
@@ -96,7 +99,8 @@ public class BlogPost {
     }
 
     public LocalDateTime getTimeOfPost() {
-        return timeOfPost;
+
+       return timeOfPost;
     }
 
     public void setTimeOfPost(LocalDateTime timeOfPost) {

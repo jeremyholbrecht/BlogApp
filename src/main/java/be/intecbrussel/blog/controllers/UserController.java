@@ -1,7 +1,9 @@
 package be.intecbrussel.blog.controllers;
 
+import be.intecbrussel.blog.data.BlogPost;
 import be.intecbrussel.blog.data.User;
 import be.intecbrussel.blog.repositories.UserRepository;
+import be.intecbrussel.blog.services.BlogPostService;
 import be.intecbrussel.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -18,10 +20,12 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserService userService;
+    private BlogPostService blogPostService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, BlogPostService blogPostService) {
         this.userService = userService;
+        this.blogPostService = blogPostService;
     }
 
 
@@ -60,9 +64,14 @@ public class UserController {
     }
 
     @GetMapping("/author")
-    public String getAuthor() {
+    public String getAuthor(Model model, BlogPost blogPost) {
+        String title = blogPost.getTitle();
+        model.addAttribute("title", blogPostService.getOneByTitle(title));
         return "author";
     }
+
+
+
 }
 
 

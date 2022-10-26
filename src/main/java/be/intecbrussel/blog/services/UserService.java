@@ -55,12 +55,20 @@ public class UserService {
         userToBeUpdate.setHouseN(updateUser.getHouseN());
         userToBeUpdate.setCity(updateUser.getCity());
         userToBeUpdate.setZip(updateUser.getZip());
-
+        userRepository.save(userToBeUpdate);
 
     }
 
     public User autenticate(String userName, String password) {
         return userRepository.findByUserNameAndPassword(userName, password).orElse(null);
     }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+
+
+
 }
 

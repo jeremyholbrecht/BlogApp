@@ -29,6 +29,7 @@ public class UserController {
     public String userRegistrationPage(Model model) {
         User user = new User();
         model.addAttribute("user", user);
+        model.addAttribute("passwordsEqual", user.isPasswordsEqual());
         return "signup";
     }
 
@@ -38,6 +39,7 @@ public class UserController {
             return "signup";
 
         model.addAttribute("user", userService.createUser(user));
+
         return "redirect:/index";
     }
 
@@ -55,6 +57,11 @@ public class UserController {
         } else {
             return "/login";
         }
+    }
+
+    @GetMapping("/author")
+    public String getAuthor() {
+        return "author";
     }
 }
 

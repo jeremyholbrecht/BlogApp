@@ -38,7 +38,7 @@
 <div th:each="blogPost : ${blogPosts}">
 <div class="block">
 
-  <div>  <a th:href="@{/index/{userName}/{blogPost} (blogPost = ${blogPost.id})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
+  <div>  <a th:href="@{/index/{userName}/{blogPost} (blogPost = ${blogPost.title})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
     <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
   <div><p th:text="${blogPost.blogBody}">Text....</p></div>
   </div></div></div>

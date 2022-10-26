@@ -43,6 +43,9 @@
         </div>
 
         <button type="submit" class="btn btn-outline-success">Login</button>
+        <div th:if="${param.error}" style="color: red">
+            Wrong
+        </div>
 
 
 

@@ -53,13 +53,13 @@ public class BlogPostController {
         return "redirect:/author";
     }
 
-    @GetMapping("index//author/{blogPostId}")
-    public String showBlogPost(Model model, @PathVariable ("blogPost") Long blogPostId, @PathVariable ("userName") String author){
+    @GetMapping("index/{userName}/{title}")
+    public String showBlogPost(Model model, @PathVariable ("title") String title, @PathVariable ("userName") String author){
         BlogPost blogPost= new BlogPost();
-        blogPostId = blogPost.getId();
+        title = blogPost.getTitle();
         User user = userService.getCurrentUser(author);
         model.addAttribute("userName", author);
-        model.addAttribute("blogPost", blogPostService.getOneById(blogPostId));
+        model.addAttribute("title", blogPostService.getOneByTitle(title));
         model.addAttribute("timeOfPost", new BlogPost().getTimeOfPost());
         return "/blogPost";
     }

@@ -193,7 +193,7 @@ public class User {
 
     @AssertTrue(message = "Passwords should match")
     public boolean isPasswordsEqual(){
-        return password.equals(rePassword);
+        return (password == null) ? false : password.equals(rePassword);
     }
 
     @Override

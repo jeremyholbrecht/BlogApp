@@ -54,12 +54,14 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public String userLogin(@ModelAttribute User user) {
+    public String userLogin(@ModelAttribute User user, Model model, BlogPost blogPost) {
         User registeredUser = userService.autenticate(user.getUserName(), user.getPassword());
-        if (registeredUser != null) {
-            return "/author";
-        } else {
+        String title = blogPost.getTitle();
+        model.addAttribute("title", blogPostService.getOneByTitle(title));
+        if (registeredUser == null) {
             return "/login";
+        } else {
+            return "/author";
         }
     }
 

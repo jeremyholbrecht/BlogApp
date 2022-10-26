@@ -53,10 +53,15 @@ public class UserController {
     public String userLogin(@ModelAttribute User user) {
         User registeredUser = userService.autenticate(user.getUserName(), user.getPassword());
         if (registeredUser != null) {
-            return "/index";
+            return "/author";
         } else {
             return "/login";
         }
+    }
+
+    @GetMapping("/author")
+    public String getAuthor() {
+        return "author";
     }
 }
 

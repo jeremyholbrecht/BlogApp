@@ -5,8 +5,8 @@ import be.intecbrussel.blog.repositories.BlogPostRepository;
 import be.intecbrussel.blog.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +22,6 @@ public class CommentService {
         this.blogPostRepository = blogPostRepository;
     }
 
-    @Autowired
-    public CommentService(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
     //add Comment
      public Comment addComment(Comment comment) {
         return this.commentRepository.save(comment);
@@ -41,9 +37,12 @@ public class CommentService {
     }
 
     //get blogpost under comment
-    public List<Comment> BlogPostComment(long id) {
-        List<Comment> comments  = commentRepository.findAllByPost(id);
-        return  comments;
+    public List<Comment> getCommentsForBlogPost(Long id) {
+        List<Comment> comments = new ArrayList<>();
+        Optional<BlogPost> blogPost=blogPostRepository.findById(id);
+        commentRepository.findAllByPost(blogPost)
+                .forEach(comments::add);
+        return comments;
     }
     public void deleteComment(Comment comment){
         this.commentRepository.delete(comment);

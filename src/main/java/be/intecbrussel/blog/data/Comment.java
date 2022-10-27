@@ -13,42 +13,42 @@ import java.time.LocalDateTime;
 @Table(name =  "comments")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
-    //if i just leave it like this JPA will give automatically  filed name so i give it will make the table not null
-    @Column(nullable = false)
-    private String name;
     @Lob
     //this is to make the column big object.
     private String comment;
-    // Helps us when you search to display according to modification data
     @CreationTimestamp
     private LocalDateTime commentCreatedTime;
-    @UpdateTimestamp
-    private LocalDateTime CommentUpdatedTime;
     @ManyToOne
-    @JoinColumn(name = "posted" ,nullable = false)
+    @JoinColumn
     private BlogPost post;
     @ManyToOne
     private User author;
+    LocalDateTime commentMade;
 
+    protected void getCommentCreatedTime(){
+        this.commentCreatedTime = LocalDateTime.now();
+    }
     public Comment() {
     }
 
-    public Comment(String name, String comment, LocalDateTime commentCreatedTime, LocalDateTime commentUpdatedTime, BlogPost post) {
-        this.name = name;
+    public Comment(String comment, LocalDateTime commentCreatedTime) {
         this.comment = comment;
         this.commentCreatedTime = commentCreatedTime;
-        CommentUpdatedTime = commentUpdatedTime;
-        this.post = post;
     }
 
-    public Comment(long id, String name, String comment, LocalDateTime commentCreatedTime, LocalDateTime commentUpdatedTime, BlogPost post, User author) {
-        this.id = id;
-        this.name = name;
+    public Comment(String comment, LocalDateTime commentCreatedTime, BlogPost post, User author) {
         this.comment = comment;
         this.commentCreatedTime = commentCreatedTime;
-        CommentUpdatedTime = commentUpdatedTime;
+        this.post = post;
+        this.author = author;
+    }
+
+    public Comment(long id, String comment, LocalDateTime commentCreatedTime, BlogPost post, User author) {
+        this.id = id;
+        this.comment = comment;
+        this.commentCreatedTime = commentCreatedTime;
         this.post = post;
         this.author = author;
     }
@@ -61,14 +61,6 @@ public class Comment {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -77,20 +69,8 @@ public class Comment {
         this.comment = comment;
     }
 
-    public LocalDateTime getCommentCreatedTime() {
-        return commentCreatedTime;
-    }
-
     public void setCommentCreatedTime(LocalDateTime commentCreatedTime) {
         this.commentCreatedTime = commentCreatedTime;
-    }
-
-    public LocalDateTime getCommentUpdatedTime() {
-        return CommentUpdatedTime;
-    }
-
-    public void setCommentUpdatedTime(LocalDateTime commentUpdatedTime) {
-        CommentUpdatedTime = commentUpdatedTime;
     }
 
     public BlogPost getPost() {
@@ -108,6 +88,26 @@ public class Comment {
     public void setAuthor(User author) {
         this.author = author;
     }
+
+    public LocalDateTime getCommentMade() {
+        return commentMade;
+    }
+
+    public void setCommentMade(LocalDateTime commentMade) {
+        this.commentMade = commentMade;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", commentCreatedTime=" + commentCreatedTime +
+                ", post=" + post +
+                ", author=" + author +
+                ", commentMade=" + commentMade +
+                '}';
+    }
+
+
 }
-
-

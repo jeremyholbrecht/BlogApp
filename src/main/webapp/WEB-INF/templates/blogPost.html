@@ -35,9 +35,9 @@
     <p>Visited: 9687892</p>
 </div>
 
-<div class="block">
-<h1>hellohellohellohellohellohellohellohello  I am a blogpost blblblblbl</h1></div>
 <!--<div class="block">
+<h1>hellohellohellohellohellohellohellohello  I am a blogpost blblblblbl</h1></div>-->
+<div class="block">
 
     <div>  <a id="blogTitle" th:text="${blogPost.title}">Title</a>
         <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
@@ -50,7 +50,7 @@
         <div>  <a id="comments" th:text="${comment.name}">name</a>
             <p> posted by <a th:text="${comment.user.userName}">Author</a> at <a th:text="${comment.commentCreatedTime}">timeOfPost </a></p>
             <div><p th:text="${blogPost.comment}">Text....</p></div>
-        </div></div></div>-->
+        </div></div></div>
 
 </body>
 </html>

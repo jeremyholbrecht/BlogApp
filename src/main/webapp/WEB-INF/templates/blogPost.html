@@ -11,10 +11,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/index}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="login.html">Login <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/login}">Login <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/register}">Sign up <span class="sr-only">(current)</span></a>
@@ -35,23 +35,38 @@
     <p>Visited: 9687892</p>
 </div>
 
-<!--<div class="block">
-<h1>hellohellohellohellohellohellohellohello  I am a blogpost blblblblbl</h1></div>-->
 <div class="block">
 
     <div>  <a id="blogTitle" th:text="${blogPost.title}">Title</a>
         <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
         <div><p th:text="${blogPost.blogBody}">Text....</p></div>
-    </div></div></div>
+    </div></div>
+
+
+
+
 
 <div th:each="comment : ${comments}">
     <div class="block">
+       <div><p> posted by <a  href="" th:text="${comment.commentAuthor.userName}">Author</a> at <a th:text="${comment.commentCreatedTime}">commentCreatedTime </a></p>
+           <div><a th:text="${comment.commentBody}">Text....</a></div>
+       </div></div></div>
       <!--  <div>  <a id="comments" th:text="${comment.name}">name</a>
             <p> posted by <a th:text="${comment.user.userName}">Author</a> at <a th:text="${comment.commentCreatedTime}">timeOfPost </a></p>
             <div><p th:text="${blogPost.comment}">Text....</p></div>
-        </div></div>-->
-    </div>
+        </div></div>
+    </div>-->
 
+<div class="block">
+    <form method="post" th:object = "${comment}" th:action = "@{/addComment}">
+        <label>Post a comment: </label><br>
+        <!--<input type="text" name = "title" placeholder="Title" th:text = *{title}><br><br>-->
+        <textarea name="commentBody" cols="40" rows="5" th:text= *{commentBody}></textarea><br>
+        <input type="submit" value="create">
+    </form></div>
+
+
+<!--
     <div class="block">
         <div class="card">
             <div class="card-header">
@@ -62,7 +77,7 @@
                 <form
                         role="form"
                         method="post"
-                        th:action="@{/addComment)}"
+                        th:action="@{/addComment}"
                         th:object="${comment}"
                 >
                     <div class="row">
@@ -70,10 +85,10 @@
                                 <textarea
                                         placeholder="Your comment"
                                         rows="8"
-                                        th:field="*{content}"
+                                        th:field="*{comment}"
                                 >
                                 </textarea>
-                            <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></p>
+                            <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="text-danger"></p>
                         </div>
                     </div>
                     <div class="row">
@@ -90,6 +105,6 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 </body>
 </html>

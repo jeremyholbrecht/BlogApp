@@ -4,7 +4,6 @@ package be.intecbrussel.blog.data;
 
 //import com.fasterxml.jackson.annotation.JsonAnySetter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,7 +16,7 @@ public class Comment {
     private long id;
     @Lob
     //this is to make the column big object.
-    private String comment;
+    private String commentBody;
     @CreationTimestamp
     private LocalDateTime commentCreatedTime;
     @ManyToOne
@@ -27,20 +26,21 @@ public class Comment {
     private User commentAuthor;
     LocalDateTime commentMade;
 
-    protected void getCommentCreatedTime(){
+    @PrePersist
+    protected void oneCreate(){
         this.commentCreatedTime = LocalDateTime.now();
     }
     public Comment() {
     }
 
     public Comment(String comment, LocalDateTime commentCreatedTime, User commentAuthor) {
-        this.comment = comment;
+        this.commentBody = comment;
         this.commentCreatedTime = commentCreatedTime;
         this.commentAuthor = commentAuthor;
     }
 
     public Comment(String comment, LocalDateTime commentCreatedTime, BlogPost post, User commentAuthor) {
-        this.comment = comment;
+        this.commentBody = comment;
         this.commentCreatedTime = commentCreatedTime;
         this.post = post;
         this.commentAuthor = commentAuthor;
@@ -48,7 +48,7 @@ public class Comment {
 
     public Comment(long id, String comment, LocalDateTime commentCreatedTime, BlogPost post, User commentAuthor) {
         this.id = id;
-        this.comment = comment;
+        this.commentBody = comment;
         this.commentCreatedTime = commentCreatedTime;
         this.post = post;
         this.commentAuthor = commentAuthor;
@@ -62,14 +62,17 @@ public class Comment {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public String getCommentBody() {
+        return commentBody;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentBody(String commentBody) {
+        this.commentBody = commentBody;
     }
 
+    public LocalDateTime getCommentCreatedTime(){
+        return commentCreatedTime;
+    }
     public void setCommentCreatedTime(LocalDateTime commentCreatedTime) {
         this.commentCreatedTime = commentCreatedTime;
     }
@@ -102,7 +105,7 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", comment='" + comment + '\'' +
+                ", comment='" + commentBody + '\'' +
                 ", commentCreatedTime=" + commentCreatedTime +
                 ", post=" + post +
                 ", commentAuthor=" + commentAuthor +

@@ -42,10 +42,11 @@ public class BlogPost {
     }
 
 
-    public BlogPost(long id, String title, User author) {
+    public BlogPost(long id, String title, User author, String blogBody) {
         this.id = id;
         this.title = title;
         this.user = author;
+        this.blogBody=blogBody;
 
     }
 

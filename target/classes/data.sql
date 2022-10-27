@@ -25,6 +25,9 @@ VALUES (5, 'Things that make me go doh!', 2, 'everything.', current_timestamp() 
 INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
 VALUES (6, 'Schlemiel schlemazel', 3, 'Hazenpepper incorporate.', current_timestamp() );
 
+INSERT INTO blogpost (id, title, user_id, blogBody, timeOfPost)
+VALUES (7, 'testing a seventh post', 1, 'Does this show up? Testing....', current_timestamp() );
+
 INSERT INTO comments (id, comment, commentCreatedTime, author_id, post_id)
 VALUES (1, 'this person is right', current_timestamp(), 3, 1 );
 

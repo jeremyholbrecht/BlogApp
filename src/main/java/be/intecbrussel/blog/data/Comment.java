@@ -24,7 +24,7 @@ public class Comment {
     @JoinColumn
     private BlogPost post;
     @ManyToOne
-    private User author;
+    private User commentAuthor;
     LocalDateTime commentMade;
 
     protected void getCommentCreatedTime(){
@@ -33,24 +33,25 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String comment, LocalDateTime commentCreatedTime) {
+    public Comment(String comment, LocalDateTime commentCreatedTime, User commentAuthor) {
         this.comment = comment;
         this.commentCreatedTime = commentCreatedTime;
+        this.commentAuthor = commentAuthor;
     }
 
-    public Comment(String comment, LocalDateTime commentCreatedTime, BlogPost post, User author) {
+    public Comment(String comment, LocalDateTime commentCreatedTime, BlogPost post, User commentAuthor) {
         this.comment = comment;
         this.commentCreatedTime = commentCreatedTime;
         this.post = post;
-        this.author = author;
+        this.commentAuthor = commentAuthor;
     }
 
-    public Comment(long id, String comment, LocalDateTime commentCreatedTime, BlogPost post, User author) {
+    public Comment(long id, String comment, LocalDateTime commentCreatedTime, BlogPost post, User commentAuthor) {
         this.id = id;
         this.comment = comment;
         this.commentCreatedTime = commentCreatedTime;
         this.post = post;
-        this.author = author;
+        this.commentAuthor = commentAuthor;
     }
 
     public long getId() {
@@ -81,12 +82,12 @@ public class Comment {
         this.post = post;
     }
 
-    public User getAuthor() {
-        return author;
+    public User getCommentAuthor() {
+        return commentAuthor;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setCommentAuthor(User commentAuthor) {
+        this.commentAuthor = commentAuthor;
     }
 
     public LocalDateTime getCommentMade() {
@@ -104,7 +105,7 @@ public class Comment {
                 ", comment='" + comment + '\'' +
                 ", commentCreatedTime=" + commentCreatedTime +
                 ", post=" + post +
-                ", author=" + author +
+                ", commentAuthor=" + commentAuthor +
                 ", commentMade=" + commentMade +
                 '}';
     }

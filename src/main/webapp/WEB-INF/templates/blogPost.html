@@ -46,11 +46,50 @@
 
 <div th:each="comment : ${comments}">
     <div class="block">
-
       <!--  <div>  <a id="comments" th:text="${comment.name}">name</a>
             <p> posted by <a th:text="${comment.user.userName}">Author</a> at <a th:text="${comment.commentCreatedTime}">timeOfPost </a></p>
             <div><p th:text="${blogPost.comment}">Text....</p></div>
         </div></div>-->
     </div>
+
+    <div class="block">
+        <div class="card">
+            <div class="card-header">
+                <h2>Leave a comment</h2>
+            </div>
+
+            <div class="card-body">
+                <form
+                        role="form"
+                        method="post"
+                        th:action="@{/addComment)}"
+                        th:object="${comment}"
+                >
+                    <div class="row">
+                        <div class="col-md-9 mb-3">
+                                <textarea
+                                        placeholder="Your comment"
+                                        rows="8"
+                                        th:field="*{content}"
+                                >
+                                </textarea>
+                            <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-5">
+                            <button
+                                    class="btn btn-primary"
+                                    type="submit"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

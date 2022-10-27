@@ -31,7 +31,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
     //add Comment
-    Comment addComment(Comment comment) {
+    public Comment addComment(Comment comment) {
         return this.commentRepository.save(comment);
     }
 
@@ -54,6 +54,7 @@ public class CommentService {
     public Comment getComment(long id) {
         return this.commentRepository.findById(id);
     }
+
 
 
     /*

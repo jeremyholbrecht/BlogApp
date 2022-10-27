@@ -48,19 +48,21 @@ public class BlogPostController {
     @PostMapping("/addBlogPost")
     public String addBlogPost(BlogPost blogPost, String userName){
         User user = userService.getCurrentUser(userName);
-        blogPost = new BlogPost("", user, blogPost.getTimeOfPost());
+        blogPost = new BlogPost(0, "", user, "");
+        LocalDateTime timeOfPost = blogPost.getTimeOfPost();
         blogPostService.createBlogPost(blogPost);
         return "redirect:/author";
     }
 
     @GetMapping("index/{userName}/{title}")
-    public String showBlogPost(Model model, @PathVariable ("title") String title, @PathVariable ("userName") String author){
+    public String showBlogPost(Model model, Long id,  @PathVariable ("title") String title, @PathVariable ("userName") String author){
         BlogPost blogPost= new BlogPost();
-        title = blogPost.getTitle();
         User user = userService.getCurrentUser(author);
         model.addAttribute("userName", author);
-        model.addAttribute("title", blogPostService.getOneByTitle(title));
+        model.addAttribute("blogPost", blogPostService.getOneByTitle(title));
+        model.addAttribute("title", blogPost.getTitle());
         model.addAttribute("timeOfPost", new BlogPost().getTimeOfPost());
         return "/blogPost";
     }
+
 }

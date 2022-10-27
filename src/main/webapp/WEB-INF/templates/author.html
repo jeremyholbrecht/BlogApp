@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet"  th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="index">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="login.html">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/register}">Sign up <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<div class="sidenav">
+  <p>Jeremy Holbrecht</p>
+  <p><img src="https://i.imgur.com/OKT5y9S.png" alt=""></p>
+  <p>Logged in: 15478</p>
+  <p>Logged out: 500</p>
+  <p>Visited: 9687892</p>
+</div>
+
+<div th:each="blogPost : ${blogPosts}">
+<div class="block">
+
+  <div>  <a th:href="@{/index/{userName}/{blogPost} (blogPost = ${blogPost.title})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
+    <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
+  <div><p th:text="${blogPost.blogBody}">Text....</p></div>
+  </div></div></div>
+
+<div class="block">
+<form method="post" th:object = "${blogPost}" th:action = "@{/addBlogPost}">
+  <label>Quick add a new blog post.</label><br>
+  <input type="text" name = "title" placeholder="Title" th:text = *{title}><br><br>
+  <textarea name="blogBody" cols="40" rows="5" th:text= *{blogBody}></textarea><br>
+  <input type="submit" value="create">
+</form></div>
+<!---<div class="content">
+            <h2>Blog entries:</h2>
+
+            <button type="button" class="collapsible" onclick="show()">Chirps and tweets - the sounds of spring</button>
+            <div class="entry">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nam quo animi voluptate exercitationem
+                    quod amet, ullam distinctio quae eius repellat! A, placeat! Eveniet nulla, aspernatur sit
+                    praesentium et deleniti.</p>
+            </div>
+            <button type="button" class="collapsible">What do coding and birding have in common?</button>
+            <div class="entry">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nam quo animi voluptate exercitationem
+                    quod amet, ullam distinctio quae eius repellat! A, placeat! Eveniet nulla, aspernatur sit
+                    praesentium et deleniti.</p>
+            </div>
+            <button type="button" class="collapsible">Found a baby bird? Here's what to do.</button>
+            <div class="entry">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nam quo animi voluptate exercitationem
+                    quod amet, ullam distinctio quae eius repellat! A, placeat! Eveniet nulla, aspernatur sit
+                    praesentium et deleniti.</p>
+            </div>
+            <button type="button" class="collapsible">Great resources to help with IDs</button>
+            <div class="entry">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nam quo animi voluptate exercitationem
+                    quod amet, ullam distinctio quae eius repellat! A, placeat! Eveniet nulla, aspernatur sit
+                    praesentium et deleniti.</p>
+            </div>
+            <button type="button" class="collapsible">Make your garden wildlife friendly</button>
+            <div class="entry">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nam quo animi voluptate exercitationem
+                    quod amet, ullam distinctio quae eius repellat! A, placeat! Eveniet nulla, aspernatur sit
+                    praesentium et deleniti.</p>
+            </div>
+        </div> --->
+
+
+
+</body>
+</html>

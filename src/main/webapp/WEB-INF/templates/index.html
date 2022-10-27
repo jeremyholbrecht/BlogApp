@@ -36,11 +36,11 @@
 </div>
 
 
-<h1>Home</h1>
+<div class="block"><h1>Welcome to BlogCentral!</h1></div>
 <div th:each="blogPost : ${blogs}">
     <div class="block">
 
-        <div>  <a th:href="@{/index/{blogPost} (blogPost = ${blogPost.title})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
+        <div>  <a th:href="@{/index/{userName}/{blogPost} (blogPost = ${blogPost.title})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
             <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
             <div><p th:text="${blogPost.blogBody}">Text....</p></div>
         </div></div></div>

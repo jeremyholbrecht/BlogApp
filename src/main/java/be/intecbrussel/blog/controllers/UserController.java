@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 // import javax.validation.Valid;
 
@@ -65,12 +66,31 @@ public class UserController {
         }
     }
 
-    @GetMapping("/author")
-    public String getAuthor(Model model, BlogPost blogPost) {
-        String title = blogPost.getTitle();
-        model.addAttribute("title", blogPostService.getOneByTitle(title));
-        return "author";
+    @GetMapping("/index/{userName}/edit")
+    public String editAuthor(Model model,
+                             @PathVariable("userName") String name) {
+        User forUpdate = userService.getCurrentUser(name);
+        model.addAttribute("user", forUpdate);
+        return "edit_author";
     }
+
+    @PostMapping("/index/{userId}")
+    public String updateAuthor(@PathVariable("userId") Long userId,
+                               @Valid @ModelAttribute("user") User user,
+                               BindingResult bindingResult,
+                               Model model) {
+        if(bindingResult.hasErrors()){
+            model.addAttribute("user", user);
+            return "edit_author";
+        }
+        user.setId(userId);
+        userService.update(user);
+        System.out.println("проверка" + user);
+        return "redirect:/index";
+    }
+
+
+
 
 
 

@@ -1,12 +1,10 @@
 package be.intecbrussel.blog.services;
 
-import be.intecbrussel.blog.data.BlogPost;
-import be.intecbrussel.blog.data.Comment;
 import be.intecbrussel.blog.data.User;
 import be.intecbrussel.blog.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +13,7 @@ public class UserService {
 
     private UserRepository userRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -43,19 +42,23 @@ public class UserService {
     }
 
 
-    public void update(String userName, User updateUser) {
-        User userToBeUpdate = getCurrentUser(userName);
+    public void update(User updateUser) {
+        userRepository.findById(updateUser.getId())
+                .ifPresent(user1 -> {
+                    user1.setName(updateUser.getName());
+                    user1.setLastName(updateUser.getLastName());
+                    user1.setUserName(updateUser.getUserName());
+                    user1.setEmail(updateUser.getEmail());
+                    user1.setStreet(updateUser.getStreet());
+                    user1.setHouseN(updateUser.getHouseN());
+                    user1.setCity(updateUser.getCity());
+                    user1.setZip(updateUser.getZip());
+                    user1.setPassword(updateUser.getPassword());
+                    user1.setRePassword(updateUser.getRePassword());
 
-        userToBeUpdate.setName(updateUser.getName());
-        userToBeUpdate.setLastName(updateUser.getLastName());
-        userToBeUpdate.setEmail(updateUser.getEmail());
-        userToBeUpdate.setPassword(updateUser.getPassword());
-        userToBeUpdate.setRePassword(updateUser.getRePassword());
-        userToBeUpdate.setStreet(updateUser.getStreet());
-        userToBeUpdate.setHouseN(updateUser.getHouseN());
-        userToBeUpdate.setCity(updateUser.getCity());
-        userToBeUpdate.setZip(updateUser.getZip());
-        userRepository.save(userToBeUpdate);
+                    userRepository.save(user1);
+        });
+
 
     }
 
@@ -63,12 +66,16 @@ public class UserService {
         return userRepository.findByUserNameAndPassword(userName, password).orElse(null);
     }
 
+
+
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
 
 
-
-
+    public User getUserbyId(Long userId) {
+        User user = userRepository.findById(userId).get();
+        return user;
+    }
 }
 

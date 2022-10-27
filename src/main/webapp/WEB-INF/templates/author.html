@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>Blog</title>
@@ -27,21 +27,25 @@
   </div>
 </nav>
 
-<div class="sidenav">
-  <p>Jeremy Holbrecht</p>
+
+
+
+<div  class="sidenav"  th:each="blogPost : ${blogPosts}">
+  <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}"> Author </a>
   <p><img src="https://i.imgur.com/OKT5y9S.png" alt=""></p>
-  <p>Logged in: 15478</p>
-  <p>Logged out: 500</p>
-  <p>Visited: 9687892</p>
+
+  <a class="btn btn-primary" th:href="@{/index/{userName}/edit(userName = ${blogPost.user.userName})}" >Edit</a>
 </div>
 
-<div th:each="blogPost : ${blogPosts}">
-<div class="block">
+
+
+
+<div class="block" th:each="blogPost : ${blogPosts}">
 
   <div>  <a th:href="@{/index/{userName}/{blogPost} (blogPost = ${blogPost.title})}" id="blogTitle" th:text="${blogPost.title}">Title</a>
     <p> posted by <a th:href="@{/index/{userName}(userName = ${blogPost.user.userName})}" th:text="${blogPost.user.userName}">Author</a> at <a th:text="${blogPost.timeOfPost}">timeOfPost </a></p>
   <div><p th:text="${blogPost.blogBody}">Text....</p></div>
-  </div></div></div>
+  </div></div>
 
 <div class="block">
 <form method="post" th:object = "${blogPost}" th:action = "@{/addBlogPost}">

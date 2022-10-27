@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Service
-public class CommentService implements CommentInter{
+public class CommentService {
     private CommentRepository commentRepository;
     private BlogPostRepository blogPostRepository;
     private BlogPostService BlogPostService;
@@ -55,8 +55,8 @@ public class CommentService implements CommentInter{
         return this.commentRepository.findById(id);
     }
 
-    @Override
-    // I need getURL method in blogpost class
+
+    /*
     public void createComment(String postURL, Comment comment) {
       BlogPostRepository blogPostRepository1 = (BlogPostRepository) blogPostRepository.findBlogPostByTitle(postURL).get();
       //still can't why to string converting needed
@@ -64,5 +64,5 @@ public class CommentService implements CommentInter{
       commentRepository.save(comment);
     }
 
-
+*/
 }

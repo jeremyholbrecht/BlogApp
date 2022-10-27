@@ -15,11 +15,13 @@ import java.util.List;
 public class CommentController {
 
     private CommentService commentService;
-
+    private BlogPostController blogPostController;
     @Autowired
-    public CommentController(CommentService commentService) {
+    public CommentController(CommentService commentService, BlogPostController blogPostController) {
         this.commentService = commentService;
+        this.blogPostController = blogPostController;
     }
+
 
     @GetMapping(value = "comment/{id}")
     public @ResponseBody Comment  get(@PathVariable("id") Long id) {

@@ -1,9 +1,11 @@
 package be.intecbrussel.blog.controllers;
 
 import be.intecbrussel.blog.data.BlogPost;
+import be.intecbrussel.blog.data.Comment;
 import be.intecbrussel.blog.data.User;
 import be.intecbrussel.blog.repositories.UserRepository;
 import be.intecbrussel.blog.services.BlogPostService;
+import be.intecbrussel.blog.services.CommentService;
 import be.intecbrussel.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -13,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 // import javax.validation.Valid;
@@ -22,12 +26,17 @@ public class UserController {
 
     private UserService userService;
     private BlogPostService blogPostService;
+    private CommentService commentService;
 
     @Autowired
-    public UserController(UserService userService, BlogPostService blogPostService) {
+    public UserController(UserService userService, BlogPostService blogPostService,
+                          CommentService commentService) {
         this.userService = userService;
         this.blogPostService = blogPostService;
+        this.commentService = commentService;
     }
+
+
 
 
     @GetMapping("/register")
@@ -59,10 +68,11 @@ public class UserController {
         User registeredUser = userService.autenticate(user.getUserName(), user.getPassword());
         String title = blogPost.getTitle();
         model.addAttribute("title", blogPostService.getOneByTitle(title));
+        model.addAttribute("userName", registeredUser.getUserName());
         if (registeredUser == null) {
-            return "/login";
+            return "redirect:/login";
         } else {
-            return "/author";
+            return "/index";
         }
     }
 
@@ -79,22 +89,55 @@ public class UserController {
                                @Valid @ModelAttribute("user") User user,
                                BindingResult bindingResult,
                                Model model) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "edit_author";
         }
         user.setId(userId);
         userService.update(user);
-        System.out.println("проверка" + user);
         return "redirect:/index";
     }
 
 
 
+    @GetMapping("/index/{userId}/delete")
+    public String deleteUser(@PathVariable("userId") Long userId,
+                             Model model, BlogPost blogPost) {
+        User user = userService.getUserbyId(userId);
+        Long blockpostId = blogPost.getId();
+
+        List<BlogPost> posts = blogPostService.getAllByAuthorByNewest(user);
+        for (BlogPost bp : posts) {
+            List<Comment> comments = commentService.getCommentsForBlogPost(bp.getId());
+            for(Comment com : comments) {
+                commentService.deleteComment(com);
+            }
+            blogPostService.deleteBlogPost(bp);
+        }
+
+        userService.deleteUser(userId);
+        return "redirect:/index";
 
 
+    }
 
+     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

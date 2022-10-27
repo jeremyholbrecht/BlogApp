@@ -68,8 +68,8 @@ public class UserService {
 
 
 
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 
 
